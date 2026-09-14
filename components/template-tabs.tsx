@@ -12,10 +12,10 @@ export function TemplateTabs({ templates }: { templates: TemplateRecord[] }) {
       </TabsList>
       {templates.map((item) => (
         <TabsContent className="template-panel" key={item.id} value={String(item.id)}>
-          {item.recognition && <section><h2>Как распознать</h2><p>{item.recognition}</p></section>}
-          <section><h2>Условие</h2><p>{item.problem}</p></section>
-          <section><h2>Разбор</h2><p>{item.explanation}</p></section>
-          <section><h2>Шаблон</h2><CodeBlock code={item.code} /></section>
+          {item.recognition && <section className="template-section template-section-recognition"><span className="section-index">01</span><h2>Как распознать</h2><p>{item.recognition}</p></section>}
+          <section className="template-section template-section-problem"><span className="section-index">02</span><h2>Условие</h2><p>{item.problem}</p></section>
+          <section className="template-section template-section-explanation"><span className="section-index">03</span><h2>Разбор</h2><p>{item.explanation}</p></section>
+          <section className="template-section template-section-code"><span className="section-index">04</span><h2>Шаблон</h2><CodeBlock code={item.code} /></section>
           {item.note && <aside className="note"><strong>Примечание</strong><p>{item.note}</p></aside>}
         </TabsContent>
       ))}

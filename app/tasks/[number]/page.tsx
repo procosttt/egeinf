@@ -18,12 +18,15 @@ export default async function TaskPage({ params }: { params: Promise<{ number: s
         <a className="text-link" href="/">Все задания</a>
       </header>
       <article className="task-page">
-        <p className="eyebrow">Задание {number}</p>
-        <h1>{topic ?? `Задание ${number}`}</h1>
+        <div className="task-intro">
+          <div><p className="eyebrow">Задание {number}</p><h1>{topic ?? `Задание ${number}`}</h1></div>
+          {templates.length > 0 && <p className="task-count">Типов: <strong>{templates.length}</strong></p>}
+        </div>
         {templates.length
           ? <TemplateTabs templates={templates} />
           : <div className="empty-state"><h2>Материал готовится</h2><p>Шаблон для этого задания появится после проверки.</p><a className="text-link" href="/">Вернуться к каталогу</a></div>}
       </article>
+      <footer className="site-footer"><p>Нашёл ошибку? Напиши автору.</p><nav><a href="https://github.com/procosttt/egeinf" target="_blank" rel="noreferrer">Made by procost ↗</a></nav></footer>
     </main>
   );
 }

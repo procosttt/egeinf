@@ -17,10 +17,14 @@ export function CodeBlock({ code }: { code: string }) {
 
   return (
     <div className="code-card">
-      <button className="copy-button" onClick={copy} type="button">
-        {state === "copied" ? "Скопировано" : state === "failed" ? "Не удалось скопировать" : "Копировать"}
-      </button>
-      <pre><code>{code}</code></pre>
+      <div className="code-toolbar">
+        <span className="window-dots" aria-hidden="true"><i /><i /><i /></span>
+        <span>template.py</span>
+        <button className="copy-button" onClick={copy} type="button">
+          {state === "copied" ? "Скопировано" : state === "failed" ? "Не удалось" : "Копировать"}
+        </button>
+      </div>
+      <pre tabIndex={0}><code>{code}</code></pre>
     </div>
   );
 }
