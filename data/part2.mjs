@@ -1,4 +1,4 @@
-export default [
+const templates = [
   {
     "slug": "19-one-heap-increase",
     "taskNumber": 19,
@@ -396,3 +396,5 @@ export default [
     "sortOrder": 32
   }
 ];
+
+export default templates;

@@ -1,7 +1,6 @@
+import Link from "next/link";
 import { summarizeCatalog, TASK_NUMBERS, TASK_TOPICS } from "@/lib/catalog.mjs";
 import { listPublishedSummaries } from "@/lib/templates";
-
-export const dynamic = "force-dynamic";
 
 function typeLabel(count: number) {
   if (count % 10 === 1 && count % 100 !== 11) return `${count} тип`;
@@ -16,10 +15,10 @@ export default async function Home() {
   return (
     <main>
       <header className="site-header">
-        <a className="brand" href="/" aria-label="Шаблоны ЕГЭ, главная">
+        <Link className="brand" href="/" aria-label="Шаблоны ЕГЭ, главная">
           <span className="brand-mark">27</span>
           <span>Шаблоны ЕГЭ</span>
-        </a>
+        </Link>
         <a className="header-jump" href="#catalog-title">К заданиям <span aria-hidden="true">↓</span></a>
       </header>
 
@@ -78,7 +77,7 @@ export default async function Home() {
 
       <footer className="site-footer">
         <p>Шаблоны для подготовки к ЕГЭ по информатике.</p>
-        <nav aria-label="Ссылки в подвале"><a href="https://github.com/procosttt/egeinf" target="_blank" rel="noreferrer">Made by procost ↗</a><a href="/admin">Редактор</a></nav>
+        <nav aria-label="Ссылки в подвале"><a href="https://github.com/procosttt/egeinf" target="_blank" rel="noreferrer">Made by procost ↗</a></nav>
       </footer>
     </main>
   );

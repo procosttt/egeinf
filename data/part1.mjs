@@ -1,4 +1,4 @@
-export default [
+const templates = [
   {
     "slug": "2-truth-table-direct",
     "taskNumber": 2,
@@ -348,3 +348,5 @@ export default [
     "sortOrder": 28
   }
 ];
+
+export default templates;
