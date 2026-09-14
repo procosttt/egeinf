@@ -14,7 +14,10 @@ export type TemplateRecord = {
   sortOrder: number;
 };
 
-const templates = initialTemplates as TemplateRecord[];
+const templates: TemplateRecord[] = initialTemplates.map((item, index) => ({
+  ...item,
+  id: index + 1,
+}));
 
 export async function listPublishedSummaries() {
   const counts = new Map<number, number>();

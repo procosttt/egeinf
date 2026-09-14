@@ -19,8 +19,17 @@ export default async function TaskPage({ params }: { params: Promise<{ number: s
   return (
     <main>
       <header className="site-header">
-        <Link className="brand" href="/"><span className="brand-mark">27</span><span>Шаблоны ЕГЭ</span></Link>
-        <Link className="text-link" href="/">Все задания</Link>
+        <div className="header-start">
+          <Link className="back-link" href="/" aria-label="Назад к заданиям">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
+          <Link className="brand" href="/" aria-label="Шаблоны ЕГЭ, главная">
+            <span className="brand-mark">27</span>
+            <span>Шаблоны ЕГЭ</span>
+          </Link>
+        </div>
       </header>
       <article className="task-page">
         <div className="task-intro">
@@ -29,7 +38,7 @@ export default async function TaskPage({ params }: { params: Promise<{ number: s
         </div>
         {templates.length
           ? <TemplateTabs templates={templates} />
-          : <div className="empty-state"><h2>Материал готовится</h2><p>Шаблон для этого задания появится после проверки.</p><Link className="text-link" href="/">Вернуться к каталогу</Link></div>}
+          : <div className="empty-state"><h2>Материал готовится</h2><p>Шаблон для этого задания появится после проверки.</p></div>}
       </article>
       <footer className="site-footer"><p>Нашёл ошибку? Напиши автору.</p><nav><a href="https://github.com/procosttt/egeinf" target="_blank" rel="noreferrer">Made by procost ↗</a></nav></footer>
     </main>

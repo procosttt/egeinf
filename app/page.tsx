@@ -19,7 +19,6 @@ export default async function Home() {
           <span className="brand-mark">27</span>
           <span>Шаблоны ЕГЭ</span>
         </Link>
-        <a className="header-jump" href="#catalog-title">К заданиям <span aria-hidden="true">↓</span></a>
       </header>
 
       <section className="hero">

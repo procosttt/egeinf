@@ -43,6 +43,21 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   background: rgb(250 250 252 / 82%);
   backdrop-filter: blur(20px) saturate(170%);
 }
+.header-start { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.back-link {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid rgb(0 0 0 / 8%);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+.back-link:hover { background: white; transform: translateX(-2px); }
 .brand { display: flex; align-items: center; gap: 11px; font-weight: 700; letter-spacing: -.025em; }
 .brand-mark {
   display: grid;
@@ -255,7 +270,8 @@ button:disabled { cursor: wait; opacity: .55; }
 .task-intro .eyebrow { margin-bottom: 12px; }
 .task-intro h1 { max-width: 860px; margin: 0; font-size: clamp(48px, 7vw, 78px); line-height: .98; letter-spacing: -.058em; }
 .task-count { flex: 0 0 auto; margin: 0 0 8px; padding: 8px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); font-size: 13px; }
-.task-page > [data-slot="tabs"], .template-panel { width: 100%; min-width: 0; }
+.task-page > .template-tabs, .template-panel { width: 100%; min-width: 0; }
+.template-tabs { display: grid; gap: 0; min-width: 0; }
 .template-tab-list {
   display: flex;
   width: 100%;
