@@ -55,6 +55,9 @@ test("task 9 publishes both spreadsheet types with code explanations", () => {
     "9-count-rows-one-triple",
   ]);
   assert.ok(task9.every((item) => item.codeExplanation?.length > 100));
+  assert.ok(task9.every((item) => item.code.includes('open("9(67).txt")')));
+  assert.ok(task9[0].code.includes("sum(b)//len(b)<c[0]"));
+  assert.ok(task9[1].code.includes("b[0]>=sum(c)/len(c)"));
 });
 
 test("task 2 type names match the solving method", () => {
