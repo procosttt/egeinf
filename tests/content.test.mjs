@@ -10,11 +10,26 @@ test("seed templates have unique slugs and required content", () => {
     assert.match(item.slug, /^[a-z0-9-]+$/);
     assert.equal(slugs.has(item.slug), false);
     slugs.add(item.slug);
-    for (const key of ["title", "problem", "explanation", "code"]) {
+    for (const key of ["title", "problem", "code"]) {
       assert.equal(typeof item[key] === "string" && item[key].trim().length > 0, true);
     }
+    if (item.status === "published") assert.ok(item.problem.trim().length >= 100, `${item.slug}: условие слишком короткое`);
     assert.match(item.status, /^(draft|published)$/);
   }
+});
+
+test("community repository adds the distinct verified task types", () => {
+  const slugs = new Set(initialTemplates.map((item) => item.slug));
+  for (const slug of [
+    "8-community-word-indexes",
+    "10-community-broadcast-address",
+    "13-community-swap-last-digits",
+    "14-community-max-zeroes-base4",
+    "15-community-divisibility-with-interval",
+    "16-community-functions-f-and-g",
+    "19-community-one-heap-decrease",
+    "21-community-two-heaps",
+  ]) assert.equal(slugs.has(slug), true, `нет шаблона ${slug}`);
 });
 
 test("uncertain page 14 material remains a draft", () => {

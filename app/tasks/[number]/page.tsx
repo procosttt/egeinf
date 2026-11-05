@@ -1,6 +1,5 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
-import { TemplateTabs } from "@/components/template-tabs";
 import { isTaskNumber, TASK_NUMBERS, TASK_TOPICS } from "@/lib/catalog.mjs";
 import { listPublishedTemplates } from "@/lib/templates";
 
@@ -16,29 +15,19 @@ export default async function TaskPage({ params }: { params: Promise<{ number: s
   const templates = await listPublishedTemplates(number);
   const topic = TASK_TOPICS[number as keyof typeof TASK_TOPICS];
 
+  if (templates.length) redirect(`/tasks/${number}/${templates[0].slug}`);
+
   return (
     <main>
       <header className="site-header">
-        <div className="header-start">
-          <Link className="back-link" href="/" aria-label="Назад к заданиям">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </Link>
-          <Link className="brand" href="/" aria-label="Шаблоны ЕГЭ, главная">
-            <span className="brand-mark">27</span>
-            <span>Шаблоны ЕГЭ</span>
-          </Link>
-        </div>
+        <Link className="brand" href="/"><span className="brand-mark">27</span><span>Шаблоны ЕГЭ</span></Link>
+        <Link className="text-link" href="/">Все задания</Link>
       </header>
       <article className="task-page">
         <div className="task-intro">
           <div><p className="eyebrow">Задание {number}</p><h1>{topic ?? `Задание ${number}`}</h1></div>
-          {templates.length > 0 && <p className="task-count">Типов: <strong>{templates.length}</strong></p>}
         </div>
-        {templates.length
-          ? <TemplateTabs templates={templates} />
-          : <div className="empty-state"><h2>Материал готовится</h2><p>Шаблон для этого задания появится после проверки.</p></div>}
+        <div className="empty-state"><h2>Материал готовится</h2><p>Шаблон для этого задания появится после проверки.</p><Link className="text-link" href="/">Вернуться к каталогу</Link></div>
       </article>
       <footer className="site-footer"><p>Нашёл ошибку? Напиши автору.</p><nav><a href="https://github.com/procosttt/egeinf" target="_blank" rel="noreferrer">Made by procost ↗</a></nav></footer>
     </main>

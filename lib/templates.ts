@@ -1,7 +1,6 @@
 import { initialTemplates } from "@/data/initial-templates.mjs";
 
 export type TemplateRecord = {
-  id: number;
   slug: string;
   taskNumber: number;
   title: string;
@@ -14,10 +13,7 @@ export type TemplateRecord = {
   sortOrder: number;
 };
 
-const templates: TemplateRecord[] = initialTemplates.map((item, index) => ({
-  ...item,
-  id: index + 1,
-}));
+const templates = initialTemplates as TemplateRecord[];
 
 export async function listPublishedSummaries() {
   const counts = new Map<number, number>();
@@ -30,5 +26,15 @@ export async function listPublishedSummaries() {
 export async function listPublishedTemplates(taskNumber: number) {
   return templates
     .filter((item) => item.taskNumber === taskNumber && item.status === "published")
-    .sort((a, b) => a.sortOrder - b.sortOrder || a.id - b.id);
+    .sort((a, b) => a.sortOrder - b.sortOrder || a.slug.localeCompare(b.slug));
+}
+
+export function listPublishedTemplateParams() {
+  return templates
+    .filter((item) => item.status === "published")
+    .map((item) => ({ number: String(item.taskNumber), slug: item.slug }));
+}
+
+export async function getPublishedTemplate(taskNumber: number, slug: string) {
+  return templates.find((item) => item.taskNumber === taskNumber && item.slug === slug && item.status === "published");
 }

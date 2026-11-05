@@ -19,6 +19,7 @@ export default async function Home() {
           <span className="brand-mark">27</span>
           <span>Шаблоны ЕГЭ</span>
         </Link>
+        <a className="header-jump" href="#catalog-title">К заданиям <span aria-hidden="true">↓</span></a>
       </header>
 
       <section className="hero">
@@ -44,7 +45,6 @@ export default async function Home() {
             <span className="hero-card-code">print(answer)</span>
           </div>
           <span className="float-pill float-pill-python">Python</span>
-          <span className="float-pill float-pill-copy">⌘ C · готово</span>
         </div>
       </section>
 
@@ -57,7 +57,7 @@ export default async function Home() {
           {TASK_NUMBERS.map((number, index) => {
             const count = counts.get(number) ?? 0;
             return (
-            <a
+            <Link
               className={`task-card ${count ? "is-ready" : "is-soon"}`}
               href={`/tasks/${number}`}
               key={number}
@@ -69,7 +69,7 @@ export default async function Home() {
                 <span className="task-action">{count ? typeLabel(count) : "Добавим после проверки"}</span>
               </span>
               <span className="task-arrow" aria-hidden="true">↗</span>
-            </a>
+            </Link>
           )})}
         </div>
       </section>
