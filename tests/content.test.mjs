@@ -66,9 +66,12 @@ test("task 2 type names match the solving method", () => {
   assert.deepEqual(task2.map((item) => item.title), ["Решение руками", "Автокод"]);
 });
 
-test("tasks 7 and 11 publish complete manual guides without fake code", () => {
-  const manualTasks = initialTemplates.filter((item) => [7, 11].includes(item.taskNumber) && item.status === "published");
-  assert.deepEqual(manualTasks.map((item) => item.taskNumber), [7, 11]);
+test("manual-only tasks publish complete guides without fake code", () => {
+  const taskNumbers = [1, 3, 4, 7, 11, 12];
+  const manualTasks = initialTemplates
+    .filter((item) => taskNumbers.includes(item.taskNumber) && item.status === "published")
+    .sort((a, b) => a.taskNumber - b.taskNumber);
+  assert.deepEqual(manualTasks.map((item) => item.taskNumber), taskNumbers);
   assert.ok(manualTasks.every((item) => !item.code));
   assert.ok(manualTasks.every((item) => item.manualGuide.introTitle.length > 0));
   assert.ok(manualTasks.every((item) => item.manualGuide.cards.length === 2));
