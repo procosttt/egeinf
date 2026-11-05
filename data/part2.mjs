@@ -394,6 +394,66 @@ const templates = [
     "note": "Код сохранён точно из DOCX.",
     "status": "published",
     "sortOrder": 32
+  },
+  {
+    "slug": "23-shortest-path-exactly-14-edges",
+    "taskNumber": 23,
+    "title": "Кратчайший путь ровно через 14 рёбер",
+    "recognition": "Нужно минимизировать длину пути с точным количеством рёбер.",
+    "problem": "В файле 23.txt описан ациклический ориентированный взвешенный граф. Каждая строка содержит номера вершин L и M и положительный вес W ребра из L в M. Найдите целую часть минимальной длины пути из вершины 1 в вершину 100, состоящего ровно из 14 рёбер.",
+    "explanation": "В состояние рекурсии добавляется количество уже пройденных рёбер.",
+    "code": "from functools import lru_cache\n\ng = {}\nfor line in open('23.txt'):\n    a, b, weight = line.split()\n    a, b, weight = int(a), int(b), float(weight)\n    g.setdefault(a, {})[b] = weight\n\n@lru_cache(None)\ndef shortest(vertex, end, edges=0):\n    if vertex == end:\n        return 0 if edges == 14 else float('inf')\n    if edges >= 14:\n        return float('inf')\n    return min(\n        (weight + shortest(next_vertex, end, edges + 1)\n         for next_vertex, weight in g.get(vertex, {}).items()),\n        default=float('inf'),\n    )\n\nprint(int(shortest(1, 100)))",
+    "note": "",
+    "status": "published",
+    "sortOrder": 33
+  },
+  {
+    "slug": "23-shortest-path-at-least-15-edges",
+    "taskNumber": 23,
+    "title": "Кратчайший путь минимум через 15 рёбер",
+    "recognition": "Нужно минимизировать длину пути с нижней границей количества рёбер.",
+    "problem": "В файле 23.txt описан ациклический ориентированный взвешенный граф. Каждая строка содержит номера вершин L и M и положительный вес W ребра из L в M. Найдите целую часть минимальной длины пути из вершины 1 в вершину 100, состоящего не менее чем из 15 рёбер.",
+    "explanation": "Конечная вершина подходит только после прохождения хотя бы 15 рёбер.",
+    "code": "from functools import lru_cache\n\ng = {}\nfor line in open('23.txt'):\n    a, b, weight = line.split()\n    a, b, weight = int(a), int(b), float(weight)\n    g.setdefault(a, {})[b] = weight\n\n@lru_cache(None)\ndef shortest(vertex, end, edges=0):\n    if vertex == end:\n        return 0 if edges >= 15 else float('inf')\n    return min(\n        (weight + shortest(next_vertex, end, edges + 1)\n         for next_vertex, weight in g.get(vertex, {}).items()),\n        default=float('inf'),\n    )\n\nprint(int(shortest(1, 100)))",
+    "note": "",
+    "status": "published",
+    "sortOrder": 34
+  },
+  {
+    "slug": "23-minimum-edge-count",
+    "taskNumber": 23,
+    "title": "Минимальное количество рёбер",
+    "recognition": "Вес рёбер не используется: минимизируется число переходов.",
+    "problem": "В файле 23.txt описан ациклический ориентированный граф. Каждая строка содержит номера вершин L и M и вес W ребра из L в M. Найдите наименьшее количество рёбер, которое может содержать путь из вершины 1 в вершину 100. Существование хотя бы одного такого пути гарантируется.",
+    "explanation": "Каждый переход добавляет к длине пути одно ребро.",
+    "code": "from functools import lru_cache\n\ng = {}\nfor line in open('23.txt'):\n    a, b, _ = line.split()\n    a, b = int(a), int(b)\n    g.setdefault(a, set()).add(b)\n\n@lru_cache(None)\ndef minimum_edges(vertex, end):\n    if vertex == end:\n        return 0\n    return min(\n        (1 + minimum_edges(next_vertex, end)\n         for next_vertex in g.get(vertex, set())),\n        default=float('inf'),\n    )\n\nprint(int(minimum_edges(1, 100)))",
+    "note": "",
+    "status": "published",
+    "sortOrder": 35
+  },
+  {
+    "slug": "23-maximum-edge-count",
+    "taskNumber": 23,
+    "title": "Максимальное количество рёбер",
+    "recognition": "Вес рёбер не используется: максимизируется число переходов.",
+    "problem": "В файле 23.txt описан ациклический ориентированный граф. Каждая строка содержит номера вершин L и M и вес W ребра из L в M. Найдите наибольшее количество рёбер, которое может содержать путь из вершины 1 в вершину 100. Существование хотя бы одного такого пути гарантируется.",
+    "explanation": "Тупиковые ветви получают минус бесконечность и не влияют на максимум.",
+    "code": "from functools import lru_cache\n\ng = {}\nfor line in open('23.txt'):\n    a, b, _ = line.split()\n    a, b = int(a), int(b)\n    g.setdefault(a, set()).add(b)\n\n@lru_cache(None)\ndef maximum_edges(vertex, end):\n    if vertex == end:\n        return 0\n    return max(\n        (1 + maximum_edges(next_vertex, end)\n         for next_vertex in g.get(vertex, set())),\n        default=float('-inf'),\n    )\n\nprint(int(maximum_edges(1, 100)))",
+    "note": "",
+    "status": "published",
+    "sortOrder": 36
+  },
+  {
+    "slug": "23-path-count-up-to-10-edges",
+    "taskNumber": 23,
+    "title": "Количество путей не длиннее 10 рёбер",
+    "recognition": "Нужно посчитать различные пути с ограничением сверху на число рёбер.",
+    "problem": "В файле 23.txt описан ациклический ориентированный граф. Каждая строка содержит номера вершин L и M и вес W ребра из L в M. Найдите количество различных путей из вершины 1 в вершину 100, содержащих не более 10 рёбер. Две вершины графа соединены не более чем одним ребром.",
+    "explanation": "Рекурсия суммирует число допустимых продолжений и отсекает пути длиннее 10 рёбер.",
+    "code": "from functools import lru_cache\n\ng = {}\nfor line in open('23.txt'):\n    a, b, _ = line.split()\n    a, b = int(a), int(b)\n    g.setdefault(a, set()).add(b)\n\n@lru_cache(None)\ndef count_paths(vertex, end, edges=0):\n    if vertex == end:\n        return 1 if edges <= 10 else 0\n    if edges >= 10:\n        return 0\n    return sum(\n        count_paths(next_vertex, end, edges + 1)\n        for next_vertex in g.get(vertex, set())\n    )\n\nprint(count_paths(1, 100))",
+    "note": "",
+    "status": "published",
+    "sortOrder": 37
   }
 ];
 

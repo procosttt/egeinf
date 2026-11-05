@@ -32,6 +32,22 @@ test("community repository adds the distinct verified task types", () => {
   ]) assert.equal(slugs.has(slug), true, `нет шаблона ${slug}`);
 });
 
+test("task 23 includes every graph type from the update", () => {
+  const task23Slugs = new Set(
+    initialTemplates
+      .filter((item) => item.taskNumber === 23 && item.status === "published")
+      .map((item) => item.slug),
+  );
+
+  for (const slug of [
+    "23-shortest-path-exactly-14-edges",
+    "23-shortest-path-at-least-15-edges",
+    "23-minimum-edge-count",
+    "23-maximum-edge-count",
+    "23-path-count-up-to-10-edges",
+  ]) assert.equal(task23Slugs.has(slug), true, `нет шаблона ${slug}`);
+});
+
 test("uncertain page 14 material remains a draft", () => {
   const uncertain = initialTemplates.filter((item) => item.note.includes("страница 14"));
   assert.ok(uncertain.length > 0);

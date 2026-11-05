@@ -337,6 +337,7 @@ button:disabled { cursor: wait; opacity: .55; }
   .template-nav { flex-wrap: nowrap; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: x proximity; scrollbar-width: none; }
   .template-nav::-webkit-scrollbar { display: none; }
   .template-link { scroll-snap-align: start; }
+  .template-link.is-active { order: -1; }
   .admin-layout { grid-template-columns: 1fr; }
   .material-list { max-height: 280px; }
 }
