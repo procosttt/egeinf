@@ -70,12 +70,18 @@ export default async function TemplatePage({
             <section className="template-code">
               <div className="template-code-heading"><span className="section-index">Решение</span><p>Готовый шаблон на Python</p></div>
               <CodeBlock code={template.code} />
+              {template.codeExplanation ? (
+                <aside className="code-explanation">
+                  <h3>Как работает код</h3>
+                  <p>{template.codeExplanation}</p>
+                </aside>
+              ) : null}
             </section>
           </div>
         </ViewTransition>
       </article>
 
-      <footer className="site-footer"><p>Нашёл ошибку? Напиши автору.</p><nav><a href="https://github.com/procosttt/egeinf" target="_blank" rel="noreferrer">Made by procost ↗</a></nav></footer>
+      <footer className="site-footer"><p>Нашёл ошибку? Напиши Косте.</p><nav><a href="https://github.com/procosttt/egeinf" target="_blank" rel="noreferrer">Made by procost ↗</a></nav></footer>
     </main>
   );
 }

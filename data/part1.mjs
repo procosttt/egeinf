@@ -2,7 +2,7 @@ const templates = [
   {
     "slug": "2-truth-table-direct",
     "taskNumber": 2,
-    "title": "Полная таблица истинности",
+    "title": "Решение руками",
     "recognition": "Дана логическая функция, нужно найти наборы, на которых она равна 0 или 1.",
     "problem": "Для функции x ∨ ¬y ∨ (¬z ∧ w) вывести строки, на которых функция равна 0.",
     "explanation": "Перебери все наборы переменных и отфильтруй нужное значение.",
@@ -14,7 +14,7 @@ const templates = [
   {
     "slug": "2-incomplete-table-permutations",
     "taskNumber": 2,
-    "title": "Восстановление порядка столбцов",
+    "title": "Автокод",
     "recognition": "Дана неполная таблица истинности без подписей переменных.",
     "problem": "Сопоставить неизвестные столбцы с x, y, w, z для заданной функции.",
     "explanation": "Перебери пропуски и все перестановки имён переменных.",
@@ -132,16 +132,30 @@ const templates = [
     "sortOrder": 10
   },
   {
-    "slug": "9-file-one-pair-minimum-single",
+    "slug": "9-largest-row-two-triples",
     "taskNumber": 9,
-    "title": "Одна пара, остальные различны",
-    "recognition": "В строке шесть чисел и проверяется одна пара.",
-    "problem": "Найти строку, где одна пара, четыре одиночных числа, а минимум не входит в пару.",
-    "explanation": "Раздели элементы по частоте и проверь единственность минимума.",
-    "code": "f = open(\"1\")\ncnt = 0\nnum = 1\nnum_list =[]\nfor z in f:\n    a = [int(x) for x in z.split()]\n    a1 = [x for x in a if a.count(x)==2]\n    s1 = [x for x in a if a.count(x)==1]\n    if a.count(min(a)) == 1 and len(a1)== 2 and len(s1)== 4:\n        num_list.append(num)\n    num+=1\nprint(max(num_list))",
-    "note": "Условие восстановлено по коду со страницы 5.",
-    "status": "draft",
+    "title": "Наибольший номер подходящей строки",
+    "recognition": "В каждой строке семь чисел: два значения встречаются по три раза и одно значение встречается один раз.",
+    "problem": "В каждой строке файла 9.txt записано семь натуральных чисел. Найдите наибольший номер строки, в которой ровно два различных числа встречаются по три раза, ещё одно число встречается один раз, а среднее арифметическое повторяющихся чисел меньше неповторяющегося числа.",
+    "explanation": "Списки repeated и single разделяют числа по частоте появления.",
+    "codeExplanation": "enumerate(..., start=1) сразу даёт номер строки. В repeated попадают все шесть вхождений двух чисел, повторяющихся по три раза, а в single — единственное неповторяющееся число. Средние сравниваются без деления: sum(repeated) < single[0] * len(repeated), поэтому дробная часть не потеряется.",
+    "code": "matching_rows = []\n\nwith open('9.txt') as file:\n    for row_number, line in enumerate(file, start=1):\n        numbers = [int(value) for value in line.split()]\n        repeated = [value for value in numbers if numbers.count(value) == 3]\n        single = [value for value in numbers if numbers.count(value) == 1]\n\n        if len(repeated) == 6 and len(single) == 1:\n            if sum(repeated) < single[0] * len(repeated):\n                matching_rows.append(row_number)\n\nprint(max(matching_rows))",
+    "note": "",
+    "status": "published",
     "sortOrder": 11
+  },
+  {
+    "slug": "9-count-rows-one-triple",
+    "taskNumber": 9,
+    "title": "Количество подходящих строк",
+    "recognition": "В каждой строке семь чисел: одно значение встречается три раза, остальные четыре значения различны.",
+    "problem": "В каждой строке файла 9.txt записано семь натуральных чисел. Определите количество строк, в которых ровно одно число встречается три раза, остальные четыре числа различны, а среднее арифметическое неповторяющихся чисел не больше повторяющегося числа.",
+    "explanation": "После проверки частот остаётся сравнить повторяющееся число со средним четырёх остальных.",
+    "codeExplanation": "В repeated находятся три вхождения одного повторяющегося числа, а в single — четыре различных одиночных значения. Условие repeated[0] * len(single) >= sum(single) равносильно сравнению повторяющегося числа со средним арифметическим одиночных, но не использует деление и работает точно.",
+    "code": "count = 0\n\nwith open('9.txt') as file:\n    for line in file:\n        numbers = [int(value) for value in line.split()]\n        repeated = [value for value in numbers if numbers.count(value) == 3]\n        single = [value for value in numbers if numbers.count(value) == 1]\n\n        if len(repeated) == 3 and len(single) == 4:\n            if repeated[0] * len(single) >= sum(single):\n                count += 1\n\nprint(count)",
+    "note": "",
+    "status": "published",
+    "sortOrder": 12
   },
   {
     "slug": "14-count-digits-over-nine",

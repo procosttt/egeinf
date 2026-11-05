@@ -7,6 +7,7 @@ export type TemplateRecord = {
   recognition: string;
   problem: string;
   explanation: string;
+  codeExplanation?: string;
   code: string;
   note: string;
   status: "draft" | "published";

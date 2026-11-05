@@ -48,6 +48,20 @@ test("task 23 includes every graph type from the update", () => {
   ]) assert.equal(task23Slugs.has(slug), true, `нет шаблона ${slug}`);
 });
 
+test("task 9 publishes both spreadsheet types with code explanations", () => {
+  const task9 = initialTemplates.filter((item) => item.taskNumber === 9 && item.status === "published");
+  assert.deepEqual(task9.map((item) => item.slug), [
+    "9-largest-row-two-triples",
+    "9-count-rows-one-triple",
+  ]);
+  assert.ok(task9.every((item) => item.codeExplanation?.length > 100));
+});
+
+test("task 2 type names match the solving method", () => {
+  const task2 = initialTemplates.filter((item) => item.taskNumber === 2 && item.status === "published");
+  assert.deepEqual(task2.map((item) => item.title), ["Решение руками", "Автокод"]);
+});
+
 test("uncertain page 14 material remains a draft", () => {
   const uncertain = initialTemplates.filter((item) => item.note.includes("страница 14"));
   assert.ok(uncertain.length > 0);

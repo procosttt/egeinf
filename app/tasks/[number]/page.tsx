@@ -29,7 +29,7 @@ export default async function TaskPage({ params }: { params: Promise<{ number: s
         </div>
         <div className="empty-state"><h2>Материал готовится</h2><p>Шаблон для этого задания появится после проверки.</p><Link className="text-link" href="/">Вернуться к каталогу</Link></div>
       </article>
-      <footer className="site-footer"><p>Нашёл ошибку? Напиши автору.</p><nav><a href="https://github.com/procosttt/egeinf" target="_blank" rel="noreferrer">Made by procost ↗</a></nav></footer>
+      <footer className="site-footer"><p>Нашёл ошибку? Напиши Косте.</p><nav><a href="https://github.com/procosttt/egeinf" target="_blank" rel="noreferrer">Made by procost ↗</a></nav></footer>
     </main>
   );
 }
