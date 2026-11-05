@@ -63,20 +63,51 @@ export default async function TemplatePage({
         <ViewTransition key={slug} name="template-content" share="auto" enter="auto" default="none">
           <div className="template-content">
             <section className="template-condition">
-              <span className="section-index">Условие</span>
-              <h2>{template.title}</h2>
+              <span className="section-index">{template.manualGuide ? "Что встречается" : "Условие"}</span>
+              <h2>{template.manualGuide?.introTitle ?? template.title}</h2>
               <p>{template.problem}</p>
             </section>
-            <section className="template-code">
-              <div className="template-code-heading"><span className="section-index">Решение</span><p>Готовый шаблон на Python</p></div>
-              <CodeBlock code={template.code} />
-              {template.codeExplanation ? (
-                <aside className="code-explanation">
-                  <h3>Как работает код</h3>
-                  <p>{template.codeExplanation}</p>
+            {template.manualGuide ? (
+              <section className="manual-guide">
+                <div className="manual-guide-heading">
+                  <span className="section-index">Решение руками</span>
+                  <p>Формулы → порядок действий → ловушки</p>
+                </div>
+                <div className="formula-grid">
+                  {template.manualGuide.cards.map((card) => (
+                    <article className="formula-card" key={card.title}>
+                      <h2>{card.title}</h2>
+                      {card.formula ? <p className="formula-expression">{card.formula}</p> : null}
+                      <ul>{card.body.map((line) => <li key={line}>{line}</li>)}</ul>
+                      {card.example ? <p className="formula-example">{card.example}</p> : null}
+                    </article>
+                  ))}
+                </div>
+                <div className="manual-steps">
+                  <h2>Как решать</h2>
+                  <ol>
+                    {template.manualGuide.steps.map((step) => (
+                      <li key={step.title}><div><strong>{step.title}</strong><p>{step.text}</p></div></li>
+                    ))}
+                  </ol>
+                </div>
+                <aside className="manual-warning">
+                  <strong>{template.manualGuide.warning.title}</strong>
+                  <p>{template.manualGuide.warning.text}</p>
                 </aside>
-              ) : null}
-            </section>
+              </section>
+            ) : (
+              <section className="template-code">
+                <div className="template-code-heading"><span className="section-index">Решение</span><p>Готовый шаблон на Python</p></div>
+                <CodeBlock code={template.code!} />
+                {template.codeExplanation ? (
+                  <aside className="code-explanation">
+                    <h3>Как работает код</h3>
+                    <p>{template.codeExplanation}</p>
+                  </aside>
+                ) : null}
+              </section>
+            )}
           </div>
         </ViewTransition>
       </article>

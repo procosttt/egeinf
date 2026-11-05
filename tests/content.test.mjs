@@ -10,9 +10,10 @@ test("seed templates have unique slugs and required content", () => {
     assert.match(item.slug, /^[a-z0-9-]+$/);
     assert.equal(slugs.has(item.slug), false);
     slugs.add(item.slug);
-    for (const key of ["title", "problem", "code"]) {
+    for (const key of ["title", "problem"]) {
       assert.equal(typeof item[key] === "string" && item[key].trim().length > 0, true);
     }
+    assert.ok(item.code?.trim() || item.manualGuide, `${item.slug}: нет кода или ручной шпаргалки`);
     if (item.status === "published") assert.ok(item.problem.trim().length >= 100, `${item.slug}: условие слишком короткое`);
     assert.match(item.status, /^(draft|published)$/);
   }
@@ -63,6 +64,15 @@ test("task 9 publishes both spreadsheet types with code explanations", () => {
 test("task 2 type names match the solving method", () => {
   const task2 = initialTemplates.filter((item) => item.taskNumber === 2 && item.status === "published");
   assert.deepEqual(task2.map((item) => item.title), ["Решение руками", "Автокод"]);
+});
+
+test("tasks 7 and 11 publish complete manual guides without fake code", () => {
+  const manualTasks = initialTemplates.filter((item) => [7, 11].includes(item.taskNumber) && item.status === "published");
+  assert.deepEqual(manualTasks.map((item) => item.taskNumber), [7, 11]);
+  assert.ok(manualTasks.every((item) => !item.code));
+  assert.ok(manualTasks.every((item) => item.manualGuide.introTitle.length > 0));
+  assert.ok(manualTasks.every((item) => item.manualGuide.cards.length === 2));
+  assert.ok(manualTasks.every((item) => item.manualGuide.steps.length === 4));
 });
 
 test("uncertain page 14 material remains a draft", () => {

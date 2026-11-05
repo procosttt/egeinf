@@ -8,7 +8,18 @@ export type TemplateRecord = {
   problem: string;
   explanation: string;
   codeExplanation?: string;
-  code: string;
+  code?: string;
+  manualGuide?: {
+    introTitle: string;
+    cards: Array<{
+      title: string;
+      formula?: string;
+      body: string[];
+      example?: string;
+    }>;
+    steps: Array<{ title: string; text: string }>;
+    warning: { title: string; text: string };
+  };
   note: string;
   status: "draft" | "published";
   sortOrder: number;
